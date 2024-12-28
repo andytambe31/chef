@@ -22,12 +22,23 @@ const config: Configuration = {
       },
       {
         test: /\.css$/, // Match CSS files
-        use: ['style-loader', 'css-loader'], // Add support for CSS
+        use: ['style-loader', 'css-loader', "sass-loader"], // Add support for CSS
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/, // Match image files
         type: 'asset/resource', // Use Webpack's asset modules for images
       },
+      {
+      test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ]
+      }
     ],
   },
   plugins: [
