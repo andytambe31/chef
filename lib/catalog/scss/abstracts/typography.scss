@@ -1,0 +1,17 @@
+:root{
+  /* Typography */
+  --font-family: 'Roboto', sans-serif;
+  --font-size-body: 16px;
+  --font-size-heading: 32px;
+
+  /* Colors */
+  --color-primary: #0078D4;
+  --color-secondary: #FF5733;
+  --color-background: #F4F4F4;
+
+}
+
+.heading{
+  font-size: var(--font-size-heading);
+  color: var(--color-secondary);
+}
