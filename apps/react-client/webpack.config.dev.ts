@@ -1,6 +1,8 @@
 import * as path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { Configuration } from 'webpack';
+// TODO: Fix work-around to remove explicit loading of @types/webpack-dev-server
+import 'webpack-dev-server';
 
 const config: Configuration = {
   mode: 'development',
