@@ -1,52 +1,20 @@
-import * as path from 'path'
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { Configuration } from 'webpack';
+import devConfig from './webpack.config.dev';
+import prodConfig from './webpack.config.prod';
 
-const config: Configuration = {
-  mode: 'development', // Add mode: 'development' or 'production'
-  entry: './src/main.tsx', // Entry file for Webpack
-  output: {
-    filename: 'bundle.js', // Output filename
-    path: path.resolve(__dirname, 'dist'), // Output directory
-    clean: true, // Ensure the output folder is cleaned before each build
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'], // Resolve these file extensions
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(ts|tsx)$/, // Match TypeScript and TSX files
-        exclude: /node_modules/, // Exclude node_modules folder
-        use: 'ts-loader', // Use Babel loader
-      },
-      {
-        test: /\.css$/, // Match CSS files
-        use: ['style-loader', 'css-loader', "sass-loader"], // Add support for CSS
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/, // Match image files
-        type: 'asset/resource', // Use Webpack's asset modules for images
-      },
-      {
-      test: /\.s[ac]ss$/i,
-        use: [
-          // Creates `style` nodes from JS strings
-          "style-loader",
-          // Translates CSS into CommonJS
-          "css-loader",
-          // Compiles Sass to CSS
-          "sass-loader",
-        ]
-      }
-    ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './index.html', // Path to your HTML template
-    }),
-  ],
-  devtool: 'source-map', // Add source maps for easier debugging
-};
+/* 
+  We can leverage the [npm_lifecycle_event]
+  (https://docs.npmjs.com/cli/v10/using-npm/scripts#current-lifecycle-event) 
+  (set by npm during the execution of the script) 
+  from node process to access which npm script 
+  is being executed. 
+*/
+const TARGET = process.env.npm_lifecycle_event;
+let config!: Configuration;
+
+if( TARGET === 'dev')
+  config = devConfig;
+else 
+  config = prodConfig;
 
 export default config;
